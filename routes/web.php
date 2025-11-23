@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\MahasiswaDashboardController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
@@ -29,4 +30,8 @@ Route::middleware(['auth', CheckRole::class . ':mahasiswa'])->prefix('mahasiswa'
     Route::get('/dashboard', [MahasiswaDashboardController::class, 'index'])->name('dashboard');
     Route::get('/materials', [MahasiswaDashboardController::class, 'materials'])->name('materials');
     Route::get('/materials/{material}', [MahasiswaDashboardController::class, 'show'])->name('materials.show');
+    
+    // Discussion Routes
+    Route::post('/materials/{material}/discussions', [DiscussionController::class, 'store'])->name('discussions.store');
+    Route::delete('/discussions/{discussion}', [DiscussionController::class, 'destroy'])->name('discussions.destroy');
 });

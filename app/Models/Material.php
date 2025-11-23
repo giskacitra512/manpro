@@ -30,4 +30,12 @@ class Material extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get all discussions for this material.
+     */
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class)->whereNull('parent_id')->with(['user', 'replies'])->latest();
+    }
 }

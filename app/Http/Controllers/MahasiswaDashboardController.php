@@ -33,6 +33,7 @@ class MahasiswaDashboardController extends Controller
 
     public function show(Material $material)
     {
+        $material->load(['discussions.user', 'discussions.replies.user']);
         return view('mahasiswa.material-detail', compact('material'));
     }
 }
