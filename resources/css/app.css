@@ -1,8 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+@theme {
+  --color-primary-50: #fee2e2;
+  --color-primary-100: #fecaca;
+  --color-primary-200: #fca5a5;
+  --color-primary-300: #f87171;
+  --color-primary-400: #ef4444;
+  --color-primary-500: #dc2626;
+  --color-primary-600: #b91c1c;
+  --color-primary-700: #991b1b;
+  --color-primary-800: #7f1d1d;
+  --color-primary-900: #450a0a;
+  
+  --color-beige-50: #fdfcf9;
+  --color-beige-100: #faf8f3;
+  --color-beige-200: #f5f1e8;
+  --color-beige-300: #ede7d8;
+  --color-beige-400: #e3d9c3;
+  --color-beige-500: #d4c5a9;
+  --color-beige-600: #c0ab8e;
+  --color-beige-700: #a88f6f;
+  --color-beige-800: #8a7459;
+  --color-beige-900: #6b5a45;
+}
+
+.btn-primary {
+  @apply bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-300;
+}
+
+.btn-secondary {
+  @apply bg-beige-500 hover:bg-beige-600 text-gray-800 font-semibold py-2 px-6 rounded-lg transition-colors duration-300;
 }
