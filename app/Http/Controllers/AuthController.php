@@ -23,7 +23,16 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+
+            // Redirect based on role
+            $user = Auth::user();
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->isMahasiswa()) {
+                return redirect()->route('mahasiswa.dashboard');
+            }
+
+            return redirect('/');
         }
 
         return back()->withErrors([
@@ -44,15 +53,19 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
+        // Get mahasiswa role (default for registration)
+        $mahasiswaRole = \App\Models\Role::where('name', 'mahasiswa')->first();
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role_id' => $mahasiswaRole->id,
         ]);
 
         Auth::login($user);
 
-        return redirect('/');
+        return redirect()->route('mahasiswa.dashboard');
     }
 
     public function logout(Request $request)
@@ -60,7 +73,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         return redirect('/');
     }
 }

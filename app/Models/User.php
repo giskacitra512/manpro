@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -44,5 +45,37 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the role that the user belongs to.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Check if the user is an admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role && $this->role->name === 'admin';
+    }
+
+    /**
+     * Check if the user is a mahasiswa.
+     */
+    public function isMahasiswa(): bool
+    {
+        return $this->role && $this->role->name === 'mahasiswa';
+    }
+
+    /**
+     * Get all materials uploaded by the user.
+     */
+    public function materials()
+    {
+        return $this->hasMany(Material::class);
     }
 }

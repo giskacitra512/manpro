@@ -16,7 +16,7 @@
                 <a href="#home" class="text-gray-700 hover:text-primary-600 font-medium transition-colors">Home</a>
                 <a href="#about" class="text-gray-700 hover:text-primary-600 font-medium transition-colors">About</a>
                 <a href="#contact" class="text-gray-700 hover:text-primary-600 font-medium transition-colors">Contact</a>
-                
+
                 @auth
                     <div class="flex items-center space-x-4">
                         <span class="text-gray-700">{{ Auth::user()->name }}</span>
@@ -48,7 +48,7 @@
             <a href="#home" class="block px-3 py-2 text-gray-700 hover:bg-beige-100 hover:text-primary-600 rounded-md">Home</a>
             <a href="#about" class="block px-3 py-2 text-gray-700 hover:bg-beige-100 hover:text-primary-600 rounded-md">About</a>
             <a href="#contact" class="block px-3 py-2 text-gray-700 hover:bg-beige-100 hover:text-primary-600 rounded-md">Contact</a>
-            
+
             @auth
                 <div class="px-3 py-2 text-gray-700">{{ Auth::user()->name }}</div>
                 <form method="POST" action="{{ route('logout') }}">
@@ -67,7 +67,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         if (mobileMenuButton) {
             mobileMenuButton.addEventListener('click', function() {
                 mobileMenu.classList.toggle('hidden');

@@ -31,12 +31,12 @@
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                         Email
                     </label>
-                    <input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
-                        autocomplete="email" 
-                        required 
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required
                         value="{{ old('email') }}"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('email') border-red-500 @enderror"
                         placeholder="nama@email.com"
@@ -51,12 +51,12 @@
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                         Password
                     </label>
-                    <input 
-                        id="password" 
-                        name="password" 
-                        type="password" 
-                        autocomplete="current-password" 
-                        required 
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('password') border-red-500 @enderror"
                         placeholder="••••••••"
                     >
@@ -68,10 +68,10 @@
                 <!-- Remember Me & Forgot Password -->
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <input 
-                            id="remember" 
-                            name="remember" 
-                            type="checkbox" 
+                        <input
+                            id="remember"
+                            name="remember"
+                            type="checkbox"
                             class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                         >
                         <label for="remember" class="ml-2 block text-sm text-gray-700">
@@ -87,8 +87,8 @@
 
                 <!-- Submit Button -->
                 <div>
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         class="w-full btn-primary py-3 text-lg"
                     >
                         Masuk

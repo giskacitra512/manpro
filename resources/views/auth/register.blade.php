@@ -31,12 +31,12 @@
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                         Nama Lengkap
                     </label>
-                    <input 
-                        id="name" 
-                        name="name" 
-                        type="text" 
-                        autocomplete="name" 
-                        required 
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        autocomplete="name"
+                        required
                         value="{{ old('name') }}"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('name') border-red-500 @enderror"
                         placeholder="Nama Anda"
@@ -51,12 +51,12 @@
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                         Email
                     </label>
-                    <input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
-                        autocomplete="email" 
-                        required 
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required
                         value="{{ old('email') }}"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('email') border-red-500 @enderror"
                         placeholder="nama@email.com"
@@ -71,12 +71,12 @@
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                         Password
                     </label>
-                    <input 
-                        id="password" 
-                        name="password" 
-                        type="password" 
-                        autocomplete="new-password" 
-                        required 
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="new-password"
+                        required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('password') border-red-500 @enderror"
                         placeholder="Minimal 8 karakter"
                     >
@@ -90,12 +90,12 @@
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
                         Konfirmasi Password
                     </label>
-                    <input 
-                        id="password_confirmation" 
-                        name="password_confirmation" 
-                        type="password" 
-                        autocomplete="new-password" 
-                        required 
+                    <input
+                        id="password_confirmation"
+                        name="password_confirmation"
+                        type="password"
+                        autocomplete="new-password"
+                        required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
                         placeholder="Ulangi password"
                     >
@@ -103,10 +103,10 @@
 
                 <!-- Terms & Conditions -->
                 <div class="flex items-start">
-                    <input 
-                        id="terms" 
-                        name="terms" 
-                        type="checkbox" 
+                    <input
+                        id="terms"
+                        name="terms"
+                        type="checkbox"
                         required
                         class="h-4 w-4 mt-1 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                     >
@@ -117,8 +117,8 @@
 
                 <!-- Submit Button -->
                 <div>
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         class="w-full btn-primary py-3 text-lg"
                     >
                         Daftar
