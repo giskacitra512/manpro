@@ -31,6 +31,7 @@ class RoleSeeder extends Seeder
         User::create([
             'name' => 'Admin Brain',
             'email' => 'admin@Brain.com',
+            'nim' => 'ADMIN001',
             'password' => Hash::make('password123'),
             'role_id' => $adminRole->id,
         ]);
@@ -39,6 +40,32 @@ class RoleSeeder extends Seeder
         User::create([
             'name' => 'Mahasiswa Demo',
             'email' => 'mahasiswa@Brain.com',
+            'nim' => '2024123456',
+            'password' => Hash::make('password123'),
+            'role_id' => $mahasiswaRole->id,
+        ]);
+
+        // Create Additional Sample Mahasiswa
+        User::create([
+            'name' => 'Budi Santoso',
+            'email' => 'budi@Brain.com',
+            'nim' => '2024123457',
+            'password' => Hash::make('password123'),
+            'role_id' => $mahasiswaRole->id,
+        ]);
+
+        User::create([
+            'name' => 'Siti Nurhaliza',
+            'email' => 'siti@Brain.com',
+            'nim' => '2024123458',
+            'password' => Hash::make('password123'),
+            'role_id' => $mahasiswaRole->id,
+        ]);
+
+        User::create([
+            'name' => 'Ahmad Fauzi',
+            'email' => 'ahmad@Brain.com',
+            'nim' => '2024123459',
             'password' => Hash::make('password123'),
             'role_id' => $mahasiswaRole->id,
         ]);
