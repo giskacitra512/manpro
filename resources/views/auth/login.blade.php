@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login - BiomediHub</title>
+    <title>Login - Brain</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient-to-br from-primary-50 to-beige-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full">
         <!-- Logo & Header -->
         <div class="text-center mb-8">
-            <a href="{{ url('/') }}" class="inline-flex items-center space-x-2 mb-4">
-                <div class="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center">
-                    <span class="text-white font-bold text-2xl">TB</span>
+            <a href="{{ url('/') }}" class="inline-flex flex-col items-center mb-4">
+                <div class="w-24 h-24 rounded-full overflow-hidden bg-white shadow-lg flex items-center justify-center mb-3">
+                    <img src="{{ asset('asset/images/logo.PNG') }}" alt="Brain Logo" class="w-full h-full object-cover">
                 </div>
-                <span class="font-bold text-2xl text-gray-800">BiomediHub</span>
+                <span class="font-bold text-2xl text-gray-800">Brain</span>
             </a>
             <h2 class="text-3xl font-bold text-gray-800 mt-4">Selamat Datang Kembali</h2>
             <p class="text-gray-600 mt-2">Masuk ke akun Anda untuk melanjutkan</p>
@@ -26,22 +26,22 @@
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
 
-                <!-- Email -->
+                <!-- Email or NIM -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                        Email
+                    <label for="login" class="block text-sm font-medium text-gray-700 mb-2">
+                        Email atau NIM
                     </label>
                     <input
-                        id="email"
-                        name="email"
-                        type="email"
+                        id="login"
+                        name="login"
+                        type="text"
                         autocomplete="email"
                         required
-                        value="{{ old('email') }}"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('email') border-red-500 @enderror"
-                        placeholder="nama@email.com"
+                        value="{{ old('login') }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('login') border-red-500 @enderror"
+                        placeholder="Email atau NIM"
                     >
-                    @error('email')
+                    @error('login')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>

@@ -29,8 +29,8 @@ class RoleSeeder extends Seeder
 
         // Create Admin User
         User::create([
-            'name' => 'Admin BiomediHub',
-            'email' => 'admin@biomedihub.com',
+            'name' => 'Admin Brain',
+            'email' => 'admin@Brain.com',
             'password' => Hash::make('password123'),
             'role_id' => $adminRole->id,
         ]);
@@ -38,7 +38,7 @@ class RoleSeeder extends Seeder
         // Create Sample Mahasiswa
         User::create([
             'name' => 'Mahasiswa Demo',
-            'email' => 'mahasiswa@biomedihub.com',
+            'email' => 'mahasiswa@Brain.com',
             'password' => Hash::make('password123'),
             'role_id' => $mahasiswaRole->id,
         ]);

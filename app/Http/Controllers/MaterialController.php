@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,10 +12,31 @@ class MaterialController extends Controller
     /**
      * Display a listing of materials (Admin).
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materials = Material::with('user')->orderBy('semester')->orderBy('created_at', 'desc')->paginate(15);
-        return view('admin.materials.index', compact('materials'));
+        $semester = $request->get('semester');
+        $courseId = $request->get('course_id');
+
+        $query = Material::with(['user', 'course']);
+
+        if ($semester) {
+            $query->whereHas('course', function($q) use ($semester) {
+                $q->where('semester', $semester);
+            });
+        }
+
+        if ($courseId) {
+            $query->where('course_id', $courseId);
+        }
+
+        $materials = $query->orderBy('created_at', 'desc')->paginate(15);
+
+        $semesters = Course::select('semester')->distinct()->orderBy('semester')->pluck('semester');
+        $courses = $semester
+            ? Course::where('semester', $semester)->orderBy('name')->get()
+            : Course::orderBy('name')->get();
+
+        return view('admin.materials.index', compact('materials', 'semesters', 'courses', 'semester', 'courseId'));
     }
 
     /**
@@ -22,7 +44,8 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        return view('admin.materials.create');
+        $courses = Course::orderBy('semester')->orderBy('name')->get();
+        return view('admin.materials.create', compact('courses'));
     }
 
     /**
@@ -35,8 +58,7 @@ class MaterialController extends Controller
             'description' => 'nullable|string',
             'content' => 'nullable|string',
             'file' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx|max:10240',
-            'semester' => 'required|integer|min:1|max:8',
-            'mata_kuliah' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id',
         ]);
 
         $filePath = null;
@@ -49,8 +71,7 @@ class MaterialController extends Controller
             'description' => $validated['description'],
             'content' => $validated['content'],
             'file_path' => $filePath,
-            'semester' => $validated['semester'],
-            'mata_kuliah' => $validated['mata_kuliah'],
+            'course_id' => $validated['course_id'],
             'user_id' => auth()->id(),
         ]);
 
@@ -62,6 +83,7 @@ class MaterialController extends Controller
      */
     public function show(Material $material)
     {
+        $material->load('course');
         return view('admin.materials.show', compact('material'));
     }
 
@@ -70,7 +92,8 @@ class MaterialController extends Controller
      */
     public function edit(Material $material)
     {
-        return view('admin.materials.edit', compact('material'));
+        $courses = Course::orderBy('semester')->orderBy('name')->get();
+        return view('admin.materials.edit', compact('material', 'courses'));
     }
 
     /**
@@ -83,8 +106,7 @@ class MaterialController extends Controller
             'description' => 'nullable|string',
             'content' => 'nullable|string',
             'file' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx|max:10240',
-            'semester' => 'required|integer|min:1|max:8',
-            'mata_kuliah' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id',
         ]);
 
         if ($request->hasFile('file')) {

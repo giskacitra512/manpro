@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $material->title }} - BiomediHub</title>
+    <title>{{ $material->title }} - Brain</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-beige-50">
@@ -14,7 +14,7 @@
         <!-- Header -->
         <header class="bg-white shadow-sm border-b border-gray-200 px-8 py-6">
             <div class="flex items-center space-x-4">
-                <a href="{{ route('mahasiswa.materials', ['semester' => $material->semester]) }}" class="text-gray-600 hover:text-gray-800">
+                <a href="{{ route('mahasiswa.materials', ['semester' => $material->course->semester]) }}" class="text-gray-600 hover:text-gray-800">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
@@ -22,10 +22,10 @@
                 <div>
                     <div class="flex items-center space-x-3">
                         <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
-                            Semester {{ $material->semester }}
+                            Semester {{ $material->course->semester }}
                         </span>
                         <span class="text-gray-400">•</span>
-                        <span class="text-gray-600">{{ $material->mata_kuliah }}</span>
+                        <span class="text-gray-600">{{ $material->course->name }}</span>
                     </div>
                     <h1 class="text-3xl font-bold text-gray-800 mt-2">{{ $material->title }}</h1>
                 </div>
@@ -77,24 +77,24 @@
                 @if($material->file_path)
                 <div class="bg-white rounded-xl shadow-md p-6 mt-6">
                     <h3 class="text-xl font-bold text-gray-800 mb-4">File Lampiran</h3>
-                    
+
                     @php
                         $fileExtension = pathinfo($material->file_path, PATHINFO_EXTENSION);
                         $isPdf = strtolower($fileExtension) === 'pdf';
                     @endphp
-                    
+
                     @if($isPdf)
                     <!-- PDF Preview -->
                     <div class="mb-4">
                         <div class="bg-gray-100 rounded-lg overflow-hidden" style="height: 600px;">
-                            <iframe src="{{ Storage::url($material->file_path) }}" 
+                            <iframe src="{{ Storage::url($material->file_path) }}"
                                     class="w-full h-full border-0"
                                     title="PDF Preview">
                             </iframe>
                         </div>
                     </div>
                     @endif
-                    
+
                     <div class="flex items-center space-x-4 p-4 bg-beige-50 rounded-lg">
                         <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                             <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,7 +170,7 @@
                                                 <span class="text-sm text-gray-500 ml-2">{{ $discussion->created_at->diffForHumans() }}</span>
                                             </div>
                                             @if($discussion->user_id === Auth::id())
-                                            <form action="{{ route('mahasiswa.discussions.destroy', $discussion) }}" method="POST" 
+                                            <form action="{{ route('mahasiswa.discussions.destroy', $discussion) }}" method="POST"
                                                   onsubmit="return confirm('Yakin ingin menghapus komentar ini?')">
                                                 @csrf
                                                 @method('DELETE')
@@ -186,15 +186,15 @@
                                     </div>
 
                                     <!-- Reply Button -->
-                                    <button onclick="toggleReplyForm({{ $discussion->id }})" 
+                                    <button onclick="toggleReplyForm({{ $discussion->id }})"
                                             class="text-primary-600 hover:text-primary-700 text-sm font-medium mt-2">
                                         💬 Balas
                                     </button>
 
                                     <!-- Reply Form -->
-                                    <form id="reply-form-{{ $discussion->id }}" 
-                                          action="{{ route('mahasiswa.discussions.store', $material) }}" 
-                                          method="POST" 
+                                    <form id="reply-form-{{ $discussion->id }}"
+                                          action="{{ route('mahasiswa.discussions.store', $material) }}"
+                                          method="POST"
                                           class="mt-4 hidden">
                                         @csrf
                                         <input type="hidden" name="parent_id" value="{{ $discussion->id }}">
@@ -210,7 +210,7 @@
                                                     <button type="submit" class="px-4 py-1 bg-primary-600 hover:bg-primary-700 text-white rounded text-sm">
                                                         Kirim
                                                     </button>
-                                                    <button type="button" onclick="toggleReplyForm({{ $discussion->id }})" 
+                                                    <button type="button" onclick="toggleReplyForm({{ $discussion->id }})"
                                                             class="px-4 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded text-sm">
                                                         Batal
                                                     </button>
@@ -235,7 +235,7 @@
                                                             <span class="text-xs text-gray-500 ml-2">{{ $reply->created_at->diffForHumans() }}</span>
                                                         </div>
                                                         @if($reply->user_id === Auth::id())
-                                                        <form action="{{ route('mahasiswa.discussions.destroy', $reply) }}" method="POST" 
+                                                        <form action="{{ route('mahasiswa.discussions.destroy', $reply) }}" method="POST"
                                                               onsubmit="return confirm('Yakin ingin menghapus balasan ini?')">
                                                             @csrf
                                                             @method('DELETE')

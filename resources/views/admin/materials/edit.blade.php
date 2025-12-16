@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Edit Materi - BiomediHub</title>
+    <title>Edit Materi - Brain</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-beige-50">
@@ -39,18 +39,15 @@
                         </div>
 
                         <div>
-                            <label for="mata_kuliah" class="block text-sm font-medium text-gray-700 mb-2">Mata Kuliah *</label>
-                            <input type="text" id="mata_kuliah" name="mata_kuliah" required value="{{ old('mata_kuliah', $material->mata_kuliah) }}"
+                            <label for="course_id" class="block text-sm font-medium text-gray-700 mb-2">Mata Kuliah *</label>
+                            <select id="course_id" name="course_id" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent">
-                        </div>
-
-                        <div>
-                            <label for="semester" class="block text-sm font-medium text-gray-700 mb-2">Semester *</label>
-                            <select id="semester" name="semester" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent">
-                                @for($i = 1; $i <= 8; $i++)
-                                <option value="{{ $i }}" {{ old('semester', $material->semester) == $i ? 'selected' : '' }}>Semester {{ $i }}</option>
-                                @endfor
+                                <option value="">Pilih Mata Kuliah</option>
+                                @foreach($courses as $course)
+                                <option value="{{ $course->id }}" {{ old('course_id', $material->course_id) == $course->id ? 'selected' : '' }}>
+                                    Semester {{ $course->semester }} - {{ $course->name }} ({{ $course->code }})
+                                </option>
+                                @endforeach
                             </select>
                         </div>
 

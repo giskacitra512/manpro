@@ -14,14 +14,17 @@ class Material extends Model
         'description',
         'content',
         'file_path',
-        'semester',
-        'mata_kuliah',
+        'course_id',
         'user_id',
     ];
 
-    protected $casts = [
-        'semester' => 'integer',
-    ];
+    /**
+     * Get the course that this material belongs to.
+     */
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 
     /**
      * Get the user that uploaded the material.

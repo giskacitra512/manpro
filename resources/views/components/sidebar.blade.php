@@ -3,12 +3,12 @@
 <aside class="w-64 bg-white shadow-lg h-screen fixed left-0 top-0 overflow-y-auto">
     <!-- Logo & Brand -->
     <div class="p-6 border-b border-gray-200">
-        <a href="{{ url('/') }}" class="flex items-center space-x-2">
-            <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span class="text-white font-bold text-xl">TB</span>
+        <a href="{{ url('/') }}" class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-white flex items-center justify-center flex-shrink-0">
+                <img src="{{ asset('asset/images/logo.PNG') }}" alt="BiomediHub Logo" class="w-full h-full object-cover">
             </div>
             <div>
-                <span class="font-bold text-xl text-gray-800">BiomediHub</span>
+                <span class="font-bold text-xl text-gray-800">Brain</span>
                 <p class="text-xs text-gray-500">{{ ucfirst($role) }} Portal</p>
             </div>
         </a>
@@ -47,12 +47,28 @@
                 <span class="font-medium">Kelola Materi</span>
             </a>
 
-            <a href="#"
-               class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 transition-colors">
+            <a href="{{ route('admin.courses.index') }}"
+               class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.courses.*') ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-beige-100' }} transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+                <span class="font-medium">Kelola Mata Kuliah</span>
+            </a>
+
+            <a href="{{ route('admin.users.index') }}"
+               class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.users.*') ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-beige-100' }} transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                 </svg>
                 <span class="font-medium">Kelola User</span>
+            </a>
+
+            <a href="{{ route('admin.discussions.index') }}"
+               class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.discussions.*') ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-beige-100' }} transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+                <span class="font-medium">Kelola Diskusi</span>
             </a>
         @else
             <!-- Mahasiswa Navigation -->
@@ -65,15 +81,15 @@
             </a>
 
             <div class="px-4 pt-4 pb-2">
-                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Materi per Semester</p>
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Mata Kuliah per Semester</p>
             </div>
 
             @for($i = 1; $i <= 8; $i++)
-            <a href="{{ route('mahasiswa.materials', ['semester' => $i]) }}"
-               class="flex items-center justify-between px-4 py-3 rounded-lg {{ request()->get('semester') == $i ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-beige-100' }} transition-colors">
+            <a href="{{ route('mahasiswa.dashboard', ['semester' => $i]) }}"
+               class="flex items-center justify-between px-4 py-3 rounded-lg {{ request()->get('semester') == $i && request()->routeIs('mahasiswa.dashboard') ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-beige-100' }} transition-colors">
                 <div class="flex items-center space-x-3">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                     </svg>
                     <span class="font-medium">Semester {{ $i }}</span>
                 </div>

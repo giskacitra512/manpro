@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Kelola Materi - BiomediHub</title>
+    <title>Kelola Materi - Brain</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-beige-50">
@@ -37,12 +37,20 @@
 
             <!-- Filter -->
             <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-                <form method="GET" class="flex gap-4">
-                    <select name="semester" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600">
+                <form method="GET" class="flex gap-4 flex-wrap">
+                    <select name="semester" onchange="loadCourses(this.value)" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600">
                         <option value="">Semua Semester</option>
-                        @for($i = 1; $i <= 8; $i++)
-                        <option value="{{ $i }}" {{ request('semester') == $i ? 'selected' : '' }}>Semester {{ $i }}</option>
-                        @endfor
+                        @foreach($semesters as $sem)
+                        <option value="{{ $sem }}" {{ request('semester') == $sem ? 'selected' : '' }}>Semester {{ $sem }}</option>
+                        @endforeach
+                    </select>
+                    <select name="course_id" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600">
+                        <option value="">Semua Mata Kuliah</option>
+                        @foreach($courses as $course)
+                        <option value="{{ $course->id }}" {{ request('course_id') == $course->id ? 'selected' : '' }}>
+                            {{ $course->name }}
+                        </option>
+                        @endforeach
                     </select>
                     <button type="submit" class="btn-primary">Filter</button>
                     <a href="{{ route('admin.materials.index') }}" class="btn-secondary">Reset</a>
@@ -56,7 +64,7 @@
                     <div class="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
                         <div class="flex justify-between items-start">
                             <span class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-medium">
-                                Semester {{ $material->semester }}
+                                Semester {{ $material->course->semester ?? '-' }}
                             </span>
                             @if($material->file_path)
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +76,7 @@
 
                     <div class="p-6">
                         <h3 class="text-lg font-bold text-gray-800 mb-2">{{ $material->title }}</h3>
-                        <p class="text-sm text-gray-600 mb-3">{{ $material->mata_kuliah }}</p>
+                        <p class="text-sm text-gray-600 mb-3">{{ $material->course->name ?? 'N/A' }}</p>
 
                         @if($material->description)
                         <p class="text-sm text-gray-700 mb-4 line-clamp-2">{{ Str::limit($material->description, 100) }}</p>

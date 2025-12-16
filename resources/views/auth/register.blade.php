@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Register - BiomediHub</title>
+    <title>Register - Brain</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient-to-br from-primary-50 to-beige-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full">
         <!-- Logo & Header -->
         <div class="text-center mb-8">
-            <a href="{{ url('/') }}" class="inline-flex items-center space-x-2 mb-4">
-                <div class="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center">
-                    <span class="text-white font-bold text-2xl">TB</span>
+            <a href="{{ url('/') }}" class="inline-flex flex-col items-center mb-4">
+                <div class="w-24 h-24 rounded-full overflow-hidden bg-white shadow-lg flex items-center justify-center mb-3">
+                    <img src="{{ asset('asset/images/logo.PNG') }}" alt="Brain Logo" class="w-full h-full object-cover">
                 </div>
-                <span class="font-bold text-2xl text-gray-800">BiomediHub</span>
+                <span class="font-bold text-2xl text-gray-800">Brain</span>
             </a>
             <h2 class="text-3xl font-bold text-gray-800 mt-4">Buat Akun Baru</h2>
-            <p class="text-gray-600 mt-2">Bergabunglah dengan komunitas BiomediHub</p>
+            <p class="text-gray-600 mt-2">Bergabunglah dengan komunitas Brain</p>
         </div>
 
         <!-- Register Form -->
@@ -62,6 +62,26 @@
                         placeholder="nama@email.com"
                     >
                     @error('email')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- NIM -->
+                <div>
+                    <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">
+                        NIM (Nomor Induk Mahasiswa)
+                    </label>
+                    <input
+                        id="nim"
+                        name="nim"
+                        type="text"
+                        autocomplete="off"
+                        required
+                        value="{{ old('nim') }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent @error('nim') border-red-500 @enderror"
+                        placeholder="Contoh: 2024123456"
+                    >
+                    @error('nim')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>

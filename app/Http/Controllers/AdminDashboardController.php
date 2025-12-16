@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -11,8 +13,10 @@ class AdminDashboardController extends Controller
     {
         $stats = [
             'total_materials' => Material::count(),
-            'total_semesters' => Material::distinct('semester')->count('semester'),
-            'recent_materials' => Material::latest()->take(5)->get(),
+            'total_courses' => Course::count(),
+            'total_users' => User::count(),
+            'total_mahasiswa' => User::where('role_id', 2)->count(),
+            'recent_materials' => Material::with('course')->latest()->take(5)->get(),
         ];
 
         return view('admin.dashboard', compact('stats'));

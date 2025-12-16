@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard Mahasiswa - BiomediHub</title>
+    <title>Dashboard Mahasiswa - Brain</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-beige-50">
@@ -54,22 +54,6 @@
                 </div>
             </div>
 
-            <!-- Semester Quick Access -->
-            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Akses Cepat per Semester</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    @for($i = 1; $i <= 8; $i++)
-                    <a href="{{ route('mahasiswa.materials', ['semester' => $i]) }}"
-                       class="group bg-beige-50 hover:bg-primary-600 rounded-xl p-6 text-center transition-all hover:shadow-lg">
-                        <div class="w-12 h-12 mx-auto bg-primary-100 group-hover:bg-white/20 rounded-lg flex items-center justify-center mb-3 transition-colors">
-                            <span class="text-2xl font-bold text-primary-600 group-hover:text-white">{{ $i }}</span>
-                        </div>
-                        <p class="font-semibold text-gray-800 group-hover:text-white transition-colors">Semester {{ $i }}</p>
-                    </a>
-                    @endfor
-                </div>
-            </div>
-
             <!-- Recent Materials -->
             <div class="bg-white rounded-xl shadow-md p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -80,12 +64,12 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    @forelse($materials as $material)
+                    @forelse($recentMaterials as $material)
                     <a href="{{ route('mahasiswa.materials.show', $material) }}"
                        class="group bg-beige-50 hover:bg-beige-100 rounded-xl p-6 transition-all hover:shadow-md">
                         <div class="flex items-start justify-between mb-3">
                             <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
-                                Semester {{ $material->semester }}
+                                Semester {{ $material->course->semester }}
                             </span>
                             @if($material->file_path)
                             <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +80,7 @@
                         <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-primary-600 transition-colors">
                             {{ $material->title }}
                         </h3>
-                        <p class="text-sm text-gray-600 mb-3">{{ $material->mata_kuliah }}</p>
+                        <p class="text-sm text-gray-600 mb-3">{{ $material->course->name }}</p>
                         @if($material->description)
                         <p class="text-sm text-gray-700 line-clamp-2">{{ Str::limit($material->description, 80) }}</p>
                         @endif

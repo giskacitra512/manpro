@@ -3,11 +3,11 @@
         <div class="flex justify-between items-center h-16">
             <!-- Logo & Brand -->
             <div class="flex items-center">
-                <a href="{{ url('/') }}" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-xl">TB</span>
+                <a href="{{ url('/') }}" class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full overflow-hidden bg-white shadow-md flex items-center justify-center flex-shrink-0">
+                        <img src="{{ asset('asset/images/logo.PNG') }}" alt="Brain Logo" class="w-full h-full object-cover">
                     </div>
-                    <span class="font-bold text-xl text-gray-800">BiomediHub</span>
+                    <span class="font-bold text-xl text-gray-800">Brain</span>
                 </a>
             </div>
 
