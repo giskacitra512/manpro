@@ -53,11 +53,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => 'required|string|email|max:255|unique:users',
-            'nim' => 'required|string|max:50|unique:users',
+            'nim' => ['required', 'string', 'max:50', 'unique:users', 'regex:/^[a-zA-Z0-9]+$/'],
             'password' => 'required|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
+        ], [
+            'name.regex' => 'Nama hanya boleh mengandung huruf dan spasi.',
+            'nim.regex' => 'NPM hanya boleh mengandung huruf dan angka.',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -91,11 +94,14 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'nim' => ['required', 'string', 'max:50', Rule::unique('users')->ignore($user->id)],
+            'nim' => ['required', 'string', 'max:50', Rule::unique('users')->ignore($user->id), 'regex:/^[a-zA-Z0-9]+$/'],
             'password' => 'nullable|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
+        ], [
+            'name.regex' => 'Nama hanya boleh mengandung huruf dan spasi.',
+            'nim.regex' => 'NPM hanya boleh mengandung huruf dan angka.',
         ]);
 
         if (!empty($validated['password'])) {

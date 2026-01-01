@@ -84,14 +84,14 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @forelse($users as $user)
                 <tr class="hover:bg-gray-50 transition-colors duration-200">
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-medium text-gray-900">{{ $user->name }}</div>
+                    <td class="px-6 py-4">
+                        <div class="font-medium text-gray-900 max-w-xs truncate" title="{{ $user->name }}">{{ Str::limit($user->name, 50) }}</div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $user->email }}
+                    <td class="px-6 py-4 text-sm text-gray-500">
+                        <div class="max-w-xs truncate" title="{{ $user->email }}">{{ $user->email }}</div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $user->npm ?? '-' }}
+                    <td class="px-6 py-4 text-sm text-gray-500">
+                        <div class="max-w-[100px] truncate" title="{{ $user->npm ?? '-' }}">{{ $user->npm ?? '-' }}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
