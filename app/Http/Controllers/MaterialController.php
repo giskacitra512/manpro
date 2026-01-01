@@ -83,7 +83,7 @@ class MaterialController extends Controller
      */
     public function show(Material $material)
     {
-        $material->load('course');
+        $material->load(['course', 'discussions.user', 'discussions.replies.user']);
         return view('admin.materials.show', compact('material'));
     }
 

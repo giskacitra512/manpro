@@ -113,11 +113,78 @@
 
         <!-- Course Description -->
         @if($material->course->description)
-        <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
             <h3 class="text-lg font-semibold text-gray-800 mb-2">Tentang Mata Kuliah</h3>
             <p class="text-gray-700">{{ $material->course->description }}</p>
         </div>
         @endif
+
+        <!-- Discussions Section -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-gray-800">Diskusi ({{ $material->discussions->count() }})</h3>
+            </div>
+
+            <div class="space-y-6">
+                @forelse($material->discussions as $discussion)
+                <div class="border-b border-gray-100 last:border-0 pb-6 last:pb-0">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-semibold">{{ substr($discussion->user->name, 0, 1) }}</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-900">{{ $discussion->user->name }}</h4>
+                                <span class="text-sm text-gray-500">{{ $discussion->created_at->diffForHumans() }}</span>
+                            </div>
+                            <p class="text-gray-700 mb-3">{{ $discussion->comment }}</p>
+
+                            <!-- Admin Actions for Discussion -->
+                            <div class="flex items-center gap-4 mb-3">
+                                <form action="{{ route('admin.discussions.destroy', $discussion) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" onclick="return confirm('Hapus komentar ini?')" class="text-xs text-red-600 hover:text-red-800 font-medium">
+                                        Hapus Komentar
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Replies -->
+                            @if($discussion->replies->count() > 0)
+                            <div class="ml-4 pl-4 border-l-2 border-gray-100 space-y-4 mt-4">
+                                @foreach($discussion->replies as $reply)
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h5 class="font-medium text-gray-900 text-sm">{{ $reply->user->name }}</h5>
+                                        <span class="text-xs text-gray-500">{{ $reply->created_at->diffForHumans() }}</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-2">{{ $reply->comment }}</p>
+                                    
+                                    <!-- Admin Actions for Reply -->
+                                    <form action="{{ route('admin.discussions.destroy', $reply) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Hapus balasan ini?')" class="text-xs text-red-600 hover:text-red-800 font-medium">
+                                            Hapus Balasan
+                                        </button>
+                                    </form>
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="text-center py-8 text-gray-500">
+                    Belum ada diskusi pada materi ini.
+                </div>
+                @endforelse
+            </div>
+        </div>
     </div>
 </main>
 @endsection
